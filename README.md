@@ -11,14 +11,25 @@ Output: Predicted medical specialty + confidence score
 
 ## Architecture
 
-Browser
-   ↓
-Frontend (Nginx :80)
-   ↓
-Spring Boot API Gateway (:8081)
-   ↓                    ↓
-FastAPI ML Service   PostgreSQL
-(:8000)              (:5432)
+                    ┌─────────────────────────────────┐
+                    │           Browser               │
+                    └────────────────┬────────────────┘
+                                     │
+                                     ▼
+                    ┌─────────────────────────────────┐
+                    │      Frontend - Nginx (:80)     │
+                    └────────────────┬────────────────┘
+                                     │
+                                     ▼
+                    ┌─────────────────────────────────-┐
+                    │  Spring Boot API Gateway (:8081) │
+                    └────────────┬────────────┬────────┘
+                                 │            │
+                                 ▼            ▼
+               ┌─────────────────────┐  ┌──────────────────┐
+               │ FastAPI ML Service  │  │   PostgreSQL     │
+               │      (:8000)        │  │     (:5432)      │
+               └─────────────────────┘  └──────────────────┘
 
 All services are containerized with Docker Compose.
 
@@ -63,7 +74,7 @@ Phase 4 — Specialty Classification
 
 1. To start:
 ```bash
-git clone https://github.com/yourusername/medical-triage.git
+git clone https://github.com/Smruthi0204/medical-triage.git
 cd medical-triage
 docker compose up --build
 ```
@@ -76,13 +87,13 @@ docker compose down
 
 ## API Endpoints
  
- `POST`  `/api/analyze` - Classify a clinical note 
- `GET`  `/api/notes` - Get all classified notes 
- `GET`  `/api/notes/specialty/{specialty}` - Filter notes by specialty 
- `GET`  `/api/notes/status/{status}` - Filter notes by status 
- `GET`  `/api/stats` - Specialty distribution 
- `PATCH`  `/api/notes/{id}/status` - Update review status 
- `GET`  `/api/health` - System health check 
+ 1. `POST`  `/api/analyze` - Classify a clinical note 
+ 2. `GET`  `/api/notes` - Get all classified notes 
+ 3. `GET`  `/api/notes/specialty/{specialty}` - Filter notes by specialty 
+ 4. `GET`  `/api/notes/status/{status}` - Filter notes by status 
+ 5. `GET`  `/api/stats` - Specialty distribution 
+ 6. `PATCH`  `/api/notes/{id}/status` - Update review status 
+ 7. `GET`  `/api/health` - System health check 
 
 ### Example Request
 ```json
