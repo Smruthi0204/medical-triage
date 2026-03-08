@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Triage System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Medical Triage System</h1>
+
+        <!-- Navigation -->
+        <div class="nav">
+            <button onclick="showPage('analyze')">Analyze Note</button>
+            <button onclick="showPage('dashboard')">Dashboard</button>
+        </div>
+
+        <!-- Page 1: Analyze Note -->
+        <div id="analyzePage">
+            <h2>Submit Clinical Note</h2>
+            <textarea id="noteInput" rows="10"
+                placeholder="Paste clinical note here..."></textarea>
+            <br>
+            <button onclick="analyzeNote()">Analyze</button>
+
+            <!-- Result -->
+            <div id="result" class="hidden">
+                <h3>Result</h3>
+                <table>
+                    <tr><td><b>Note ID</b></td><td id="resId"></td></tr>
+                    <tr><td><b>Specialty</b></td><td id="resSpecialty"></td></tr>
+                    <tr><td><b>Confidence</b></td><td id="resConfidence"></td></tr>
+                    <tr><td><b>Status</b></td><td id="resStatus"></td></tr>
+                    <tr><td><b>Cleaned Note</b></td><td id="resCleanText" style="font-size:12px; color:#555;"></td></tr>
+                </table>
+
+                <h4>All Probabilities</h4>
+                <table id="probTable">
+                    <tr><th>Specialty</th><th>Probability</th></tr>
+                </table>
+            </div>
+
+            <div id="error" class="hidden error"></div>
+        </div>
+
+        <!-- Page 2: Dashboard -->
+        <div id="dashboardPage" class="hidden">
+            <h2>All Classified Notes</h2>
+
+            <h3>Specialty Distribution</h3>
+            <table id="statsTable">
+                <tr><th>Specialty</th><th>Count</th></tr>
+            </table>
+
+            <h3>Notes</h3>
+            <button onclick="loadDashboard()">Refresh</button>
+            <table id="notesTable">
+                <tr>
+                    <th>ID</th>
+                    <th>Specialty</th>
+                    <th>Confidence</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Note Detail Modal -->
+    <div id="modal" class="hidden">
+        <div class="modal-overlay" onclick="closeModal()"></div>
+        <div class="modal-box">
+            <h3>Note Details</h3>
+            <table>
+                <tr><td><b>ID</b></td><td id="mId"></td></tr>
+                <tr><td><b>Specialty</b></td><td id="mSpecialty"></td></tr>
+                <tr><td><b>Confidence</b></td><td id="mConfidence"></td></tr>
+                <tr><td><b>Status</b></td><td id="mStatus"></td></tr>
+                <tr><td><b>Created At</b></td><td id="mCreatedAt"></td></tr>
+            </table>
+
+            <h4>Raw Note</h4>
+            <div id="mRawNote" class="note-box"></div>
+
+            <h4>Cleaned Note</h4>
+            <div id="mCleanNote" class="note-box"></div>
+
+            <div class="modal-actions">
+                <button onclick="markReviewed()">Mark Reviewed</button>
+                <button class="btn-close" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
