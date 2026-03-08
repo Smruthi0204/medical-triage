@@ -120,6 +120,8 @@ POST /api/analyze
 }
 ```
 
+A frontend with simple clinical dashboard where users can submit raw clinical notes for analysis and view classified results including predicted specialty, confidence score, and preprocessed text is included. The dashboard displays all classified notes with their review status, specialty distribution stats, and allows clinicians to mark notes as reviewed.
+
 ## Model Retraining
 
 The model is trained on the [MTSamples dataset](https://www.kaggle.com/datasets/tboyle10/medicaltranscriptions).
