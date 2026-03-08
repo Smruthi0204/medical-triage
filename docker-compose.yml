@@ -6,9 +6,9 @@ services:
     image: postgres:15-alpine
     container_name: mt-postgres
     environment:
-      POSTGRES_DB: medical_triage
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgresql987
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5433:5432"
     volumes:
@@ -44,11 +44,11 @@ services:
     ports:
       - "8081:8081"
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/medical_triage
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgresql987
-      ML_SERVICE_URL: http://ml-service:8000
-      SERVER_PORT: 8081
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${POSTGRES_DB}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      ML_SERVICE_URL: ${ML_SERVICE_URL}
+      SERVER_PORT: ${SERVER_PORT}
     depends_on:
       postgres:
         condition: service_healthy
